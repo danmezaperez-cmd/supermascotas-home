@@ -1,0 +1,34 @@
+{
+  "contraste": {
+    "movil": {
+      "fallos": [],
+      "sobreImagen": [],
+      "chicos": [
+        "a \"Saltar al contenido\" 1×1"
+      ]
+    },
+    "escritorio": {
+      "fallos": [],
+      "sobreImagen": [],
+      "chicos": [
+        "a \"Saltar al contenido\" 1×1"
+      ]
+    }
+  },
+  "zoom200": {
+    "scrollW": 195,
+    "clientW": 195,
+    "desborde": false
+  },
+  "teclado": {
+    "ocultosAlcanzables": [],
+    "enAriaHidden": [],
+    "sinFocoVisible": [],
+    "total": 56,
+    "cajonCerradoEnDom": 0,
+    "cajonAbiertoEnDom": 1,
+    "focoAlAbrir": "Cerrar el carrito",
+    "cajonTrasEscape": 0,
+    "focoRestaurado": "Abrir carrito, 0 productos"
+  }
+}

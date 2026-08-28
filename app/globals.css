@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --shell-pad: 1rem;
+    --ease-soft: cubic-bezier(.22, .61, .36, 1);
+  }
+  @media (min-width: 768px) { :root { --shell-pad: 1.5rem } }
+  @media (min-width: 1280px) { :root { --shell-pad: 2rem } }
+
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } }
+
+  /* Sin `overflow-x: hidden` de red de seguridad: taparía un desborde real.
+     La ausencia de scroll horizontal se verifica midiendo en los 8 anchos. */
+  body { @apply bg-white text-ink font-sans antialiased; }
+
+  /* Foco visible en todo elemento interactivo. No es opcional. */
+  :focus-visible {
+    outline: 3px solid theme('colors.brand.500');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible { outline-color: theme('colors.sun.400'); }
+
+  ::selection { background: theme('colors.brand.200'); color: theme('colors.ink.DEFAULT'); }
+
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  .shell { @apply mx-auto w-full max-w-shell; padding-inline: var(--shell-pad); }
+
+  /* ---- Botones: reposo, hover, activo, foco, deshabilitado, cargando ---- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-pill font-bold
+           transition-[transform,background-color,box-shadow,color] duration-base ease-soft
+           select-none disabled:cursor-not-allowed disabled:opacity-45;
+    min-height: 44px;
+    padding-inline: 1.25rem;
+  }
+  .btn:active:not(:disabled) { transform: translateY(1px) scale(.985); }
+  .btn-primary { @apply bg-brand-600 text-white shadow-e1 hover:bg-brand-700 hover:shadow-e2; }
+  .btn-accent  { @apply bg-accent-600 text-white shadow-e1 hover:bg-accent-700 hover:shadow-e2; }
+  .btn-ghost   { @apply bg-white text-brand-700 shadow-inset1 hover:bg-brand-50; }
+  .btn-lime    { @apply bg-lime-500 text-ink shadow-e1 hover:bg-lime-600; }
+  .btn-sm      { min-height: 44px; @apply text-body px-4; }
+  .btn-lg      { min-height: 52px; @apply text-[1.0625rem] px-6; }
+
+  /* Área táctil mínima real de 44×44 sin inflar la caja visual. */
+  .tap::after {
+    content: ''; position: absolute; inset: 50% auto auto 50%;
+    width: 44px; height: 44px; transform: translate(-50%, -50%);
+  }
+
+  .rail {
+    @apply flex gap-3 overflow-x-auto overscroll-x-contain pb-1;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail::-webkit-scrollbar { display: none }
+  .rail > * { scroll-snap-align: start; flex: 0 0 auto }
+
+  /* Sangrado de riel: los items se alinean con la reja y respiran hasta el borde. */
+  .rail-bleed {
+    margin-inline: calc(var(--shell-pad) * -1);
+    padding-inline: var(--shell-pad);
+    scroll-padding-inline: var(--shell-pad);
+  }
+
+  .card {
+    @apply relative rounded-xl bg-white shadow-inset1 transition-[box-shadow,transform] duration-base ease-soft;
+  }
+  .card-hover:hover { @apply shadow-e2; transform: translateY(-2px); }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-brand-50;
+  }
+  .skeleton::after {
+    content: ''; @apply absolute inset-0 animate-shimmer;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+    transform: translateX(-100%);
+  }
+
+  /* Enlaces de texto dentro de listas: 44 px de alto real sin inflar la caja visual. */
+  .link-tap { @apply inline-flex min-h-11 items-center; }
+
+  .eyebrow-chip {
+    @apply inline-flex max-w-full items-center gap-1.5 rounded-pill px-2.5 py-1 text-eyebrow uppercase;
+    overflow-wrap: anywhere;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none }
+  .no-scrollbar { scrollbar-width: none }
+  .text-shadow-soft { text-shadow: 0 1px 12px rgba(10, 27, 71, .45) }
+}
+
+/* Por debajo de 320 px CSS —zoom al 200 % sobre una pantalla de 390— se permite
+   partir palabra antes que recortar o abrir scroll horizontal. Ningún
+   dispositivo real entra aquí; el zoom sí. */
+@media (max-width: 319px) {
+  body { overflow-wrap: anywhere; }
+}
+
+/* Toda microinteracción se anula bajo prefers-reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
