@@ -109,7 +109,7 @@
       "clientWidth": 414,
       "scrollHorizontal": false,
       "culpables": [],
-      "altoTotal": 6343,
+      "altoTotal": 6347,
       "bannersBottom": 435,
       "bannersEnFold": true,
       "primerProductoTop": 619,
@@ -407,7 +407,7 @@
     "contadorTrasAgregar": "1",
     "barraFijaVisible": true,
     "progresoEnvio": "100",
-    "textoEnvio": null,
+    "textoEnvio": "¡Listo! Tu envío es gratis.",
     "crossSell": true,
     "progresoTrasCrossSell": "100"
   },

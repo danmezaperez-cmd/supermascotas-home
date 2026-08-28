@@ -42,8 +42,10 @@ for (const [w, h, etiqueta] of [[390, 844, 'móvil'], [1024, 768, 'tableta'], [1
 
     const cajas = await page.evaluate((i) => {
       const li = document.querySelectorAll('[aria-roledescription="diapositiva"]')[i]
-      const t = li.querySelector('.text-display')
-      const p = li.querySelector('.text-body-lg')
+      // Anclado a data-*, no a clases de utilidad: una clase responsiva dejaba
+      // el selector huérfano y la comprobación pasaba en silencio sin medir nada.
+      const t = li.querySelector('[data-banner="titulo"]')
+      const p = li.querySelector('[data-banner="bajada"]')
       const r = (el) => { if (!el) return null; const b = el.getBoundingClientRect(); return { x: b.x, y: b.y, width: b.width, height: b.height } }
       return { titulo: r(t), bajada: r(p) }
     }, i)
@@ -55,7 +57,8 @@ for (const [w, h, etiqueta] of [[390, 844, 'móvil'], [1024, 768, 'tableta'], [1
     }, i)
 
     for (const [nombre, caja] of Object.entries(cajas)) {
-      if (!caja || caja.width < 2 || caja.height < 2) continue
+      if (!caja) { console.log(`${etiqueta.padEnd(11)} diapositiva ${i + 1} ${nombre.padEnd(7)} ✗ NO ENCONTRADO`); continue }
+      if (caja.width < 2 || caja.height < 2) continue
       const png = await page.screenshot({ clip: caja })
       const px = await peorLuminancia(png)
       const peor = px.map(lum).reduce((a, v) => Math.max(a, v), 0)

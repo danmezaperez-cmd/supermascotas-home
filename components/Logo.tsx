@@ -7,7 +7,7 @@ export function Logo({ className = '', onDark = false }: { className?: string; o
       <img
         src={logo.src} width={logo.width} height={logo.height}
         alt="Supermascotas" decoding="async"
-        className={`h-9 w-auto shrink-0 md:h-10 ${onDark ? 'brightness-0 invert' : ''} ${className}`}
+        className={`h-11 w-auto shrink-0 md:h-14 ${onDark ? 'brightness-0 invert' : ''} ${className}`}
       />
     )
   }

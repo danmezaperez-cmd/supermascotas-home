@@ -7,3 +7,8 @@ next-env.d.ts
 .DS_Store
 audit/shots/
 dist/
+
+# Originales pesados de fotografía de ambiente. Lo que se versiona es
+# data/photos.ts ya generado, para que el build funcione en un clon limpio.
+assets/fotos/*.jpg
+.DS_Store

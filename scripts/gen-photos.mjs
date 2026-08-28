@@ -8,7 +8,9 @@ import { mkdtempSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-const SRC = '/Users/danielam.perez/Downloads'
+// Originales de gran tamaño. Se excluyen del repositorio: lo que se versiona
+// es data/photos.ts ya generado, para que el build funcione en un clon limpio.
+const SRC = 'assets/fotos'
 const tmp = mkdtempSync(join(tmpdir(), 'smphotos-'))
 
 const sips = (args) => execFileSync('/usr/bin/sips', args, { stdio: ['ignore', 'pipe', 'pipe'] })

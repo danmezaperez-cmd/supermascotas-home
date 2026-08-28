@@ -76,9 +76,9 @@ function SlidePrincipal({ b, index, total }: { b: Banner; index: number; total: 
                 </span>
               )}
             </p>
-            <p className="text-display text-white text-shadow-soft">{b.titulo}</p>
+            <p data-banner="titulo" className="text-display text-white text-shadow-soft">{b.titulo}</p>
             {b.bajada && (
-              <p className="mt-1.5 hidden max-w-[40ch] text-body text-brand-100 sm:block lg:text-body-lg">{b.bajada}</p>
+              <p data-banner="bajada" className="mt-1.5 hidden max-w-[40ch] text-body text-brand-100 sm:block lg:text-body-lg">{b.bajada}</p>
             )}
             <a href={b.cta.href} className="btn btn-lg btn-primary mt-4 self-start bg-white text-brand-700 hover:bg-brand-50">
               {b.cta.label}

@@ -14,12 +14,15 @@ import type { Categoria, Product } from '@/data/products'
 
 type Tono = { fondo: string; fondo2: string; pack: string; packSombra: string; tinta: string; banda: string }
 
+// Fondos deliberadamente cercanos al blanco: en el mismo riel conviven envases
+// ilustrados y packshots reales, que llegan sobre blanco. Un tinte fuerte
+// rompía esa continuidad.
 const TONOS: Tono[] = [
-  { fondo: '#F3F6FD', fondo2: '#DCE4F8', pack: '#173DA0', packSombra: '#0E2666', tinta: '#FFFFFF', banda: '#8AA3E4' },
-  { fondo: '#F8FBEF', fondo2: '#EBF4CB', pack: '#6E8426', packSombra: '#52631C', tinta: '#FFFFFF', banda: '#C2DD6B' },
-  { fondo: '#FEFDF2', fondo2: '#FDF8C7', pack: '#EFE14B', packSombra: '#DCCB33', tinta: '#111B2E', banda: '#93851F' },
-  { fondo: '#EEF2FC', fondo2: '#B6C6F0', pack: '#0E2666', packSombra: '#0A1B47', tinta: '#FFFFFF', banda: '#5877CE' },
-  { fondo: '#F6FAE8', fondo2: '#D7E99B', pack: '#A4C33D', packSombra: '#8CA831', tinta: '#111B2E', banda: '#52631C' },
+  { fondo: '#FFFFFF', fondo2: '#EEF2FC', pack: '#173DA0', packSombra: '#0E2666', tinta: '#FFFFFF', banda: '#8AA3E4' },
+  { fondo: '#FFFFFF', fondo2: '#F2F7E4', pack: '#6E8426', packSombra: '#52631C', tinta: '#FFFFFF', banda: '#C2DD6B' },
+  { fondo: '#FFFFFF', fondo2: '#FDFAE0', pack: '#EFE14B', packSombra: '#DCCB33', tinta: '#111B2E', banda: '#93851F' },
+  { fondo: '#FFFFFF', fondo2: '#E7ECFA', pack: '#0E2666', packSombra: '#0A1B47', tinta: '#FFFFFF', banda: '#5877CE' },
+  { fondo: '#FFFFFF', fondo2: '#F4F9E6', pack: '#A4C33D', packSombra: '#8CA831', tinta: '#111B2E', banda: '#52631C' },
 ]
 
 /** Hash estable: la misma marca recibe siempre el mismo tono. */
@@ -170,7 +173,7 @@ export function ProductArt({ product, className = '' }: { product: Product; clas
         </linearGradient>
       </defs>
       <rect width="200" height="200" fill={`url(#${gid})`} />
-      <circle cx="100" cy="96" r="72" fill="#fff" opacity=".5" />
+      <circle cx="100" cy="96" r="72" fill="#fff" opacity=".65" />
       {/* Silueta de especie al fondo: da contexto de categoría sin fingir una foto. */}
       <g fill={t.pack} opacity=".09" transform="translate(163 44) scale(1.15) translate(-100 -75)">
         <Silueta categoria={product.categoria} />

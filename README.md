@@ -49,7 +49,10 @@ data/photos.ts          fotografías en data URI (generado)
 data/site.ts            datos de negocio
 lib/format.ts           COP, % de ahorro, precio por kilo, vigencia de promoción
 lib/cart.tsx            carrito en memoria + progreso hacia envío gratis
-scripts/gen-photos.mjs  regenera data/photos.ts desde los originales
+data/packshots.ts       fotografía de producto por id (generado)
+data/brand.ts           logotipo oficial (generado)
+scripts/gen-photos.mjs      regenera data/photos.ts desde assets/fotos
+scripts/gen-packshots.mjs   regenera data/packshots.ts y data/brand.ts desde assets/
 ```
 
 ### Cambiar una campaña
@@ -61,15 +64,21 @@ No hay JSX repetido: agregar una campaña es agregar un elemento al array.
 
 ### Fotografía de producto
 
-`data/products.ts` trae `packshot: null` en todo el catálogo: **no hay fotografía propia
-verificada de ningún SKU**. Se renderiza una ilustración de envase con la marca
-(`components/ProductArt.tsx`) en lugar de reutilizar el packshot de otro producto —el
-bug del catálogo heredado, donde la arena para gatos mostraba una lata y un alimento
-propio mostraba una bolsa de la competencia. Cuando llegue el packshot real, basta
-poner su data URI en `packshot` y esa foto manda.
+El packshot **no se declara en el catálogo**: se resuelve por `id` contra
+`data/packshots.ts`, que genera `scripts/gen-packshots.mjs` a partir de
+`assets/packshots/<id>.png`. Añadir una foto = añadir un archivo con el nombre del id.
+
+Hoy siete SKU tienen fotografía propia verificada. El resto se dibuja con una
+ilustración de envase (`components/ProductArt.tsx`). **Ningún producto hereda la foto
+de otro**: ese era el bug del catálogo heredado, donde la arena para gatos mostraba una
+lata y un alimento propio mostraba una bolsa de la competencia.
 
 Las fotos de `data/photos.ts` son de mascotas y de la clínica, y solo se usan para
 retratar eso. Ningún banner muestra un producto.
+
+El logotipo oficial sale de `assets/logo-supermascotas.png` por el mismo script hacia
+`data/brand.ts`; si el archivo no está, `components/Logo.tsx` cae en un trazado
+vectorial de respaldo.
 
 ---
 
