@@ -103,7 +103,7 @@ await page.screenshot({ path: `${OUT}/shots/${LABEL}-flujo-2-barra.png` })
 await page.locator('[data-sticky] button').click()
 await page.waitForTimeout(400)
 flujo.progresoEnvio = await page.locator('[role="progressbar"]').first().getAttribute('aria-valuenow')
-flujo.textoEnvio = await page.locator('[role="dialog"] >> text=/envío gratis/i').first().innerText().catch(() => null)
+flujo.textoEnvio = await page.locator('[role="dialog"] [role="progressbar"]').first().evaluate((el) => el.parentElement.querySelector('p').innerText).catch(() => null)
 flujo.crossSell = await page.locator('[role="dialog"] >> text=Suele comprarse junto').isVisible().catch(() => false)
 await page.screenshot({ path: `${OUT}/shots/${LABEL}-flujo-3-carrito.png` })
 

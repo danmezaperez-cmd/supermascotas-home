@@ -9,7 +9,7 @@ import { Icon } from './Icon'
  */
 export function OffersRail() {
   return (
-    <section id="ofertas" data-sec="ofertas" aria-labelledby="ofertas-h" className="shell pt-4 md:pt-6">
+    <section id="ofertas" data-sec="ofertas" aria-labelledby="ofertas-h" className="shell pt-3 md:pt-5">
       <SectionHeader
         id="ofertas-h"
         eyebrow="Ahorra esta semana"

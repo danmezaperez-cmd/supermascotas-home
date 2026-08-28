@@ -57,7 +57,7 @@ export function OfertaCard({ p }: { p: Product }) {
   return (
     <article data-card="oferta" className="card card-hover flex h-full w-full flex-col overflow-hidden">
       <div className="flex gap-2.5 p-2.5 pb-2">
-        <div className="relative h-[5.5rem] w-[5.5rem] shrink-0 overflow-hidden rounded-md">
+        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md">
           <ProductArt product={p} />
           {off > 0 && (
             <span className="absolute left-0 top-0 rounded-br-md bg-accent-600 px-1.5 py-0.5 text-[0.625rem] font-extrabold leading-tight text-white">
@@ -82,7 +82,7 @@ export function OfertaCard({ p }: { p: Product }) {
         </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-line px-2.5 py-2">
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-line px-2.5 py-1.5">
         <p data-price="" className="flex items-baseline gap-x-1.5 whitespace-nowrap">
           <span className="text-[1.0625rem] font-extrabold leading-tight tracking-tight">{formatCOP(p.precio)}</span>
           {off > 0 && <s className="text-micro text-muted">{formatCOP(p.precioAntes!)}</s>}

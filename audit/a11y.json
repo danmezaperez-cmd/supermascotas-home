@@ -11,7 +11,9 @@
       "fallos": [],
       "sobreImagen": [],
       "chicos": [
-        "a \"Saltar al contenido\" 1×1"
+        "a \"Saltar al contenido\" 1×1",
+        "button \"Campaña anterior\" 36×36",
+        "button \"Campaña siguiente\" 36×36"
       ]
     }
   },

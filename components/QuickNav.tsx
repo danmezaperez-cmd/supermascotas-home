@@ -11,7 +11,7 @@ import { Icon, type IconName } from './Icon'
  */
 export function QuickNav() {
   return (
-    <section data-sec="accesos" aria-labelledby="accesos-h" className="shell pt-3 md:pt-6">
+    <section data-sec="accesos" aria-labelledby="accesos-h" className="shell pt-2 md:pt-5">
       <h1 id="accesos-h" className="mb-2 text-body font-bold leading-snug text-ink md:text-subtitle">
         Tienda de mascotas en Cali con clínica veterinaria propia
         <span className="font-medium text-muted"> y urgencias 24 h</span>
@@ -21,7 +21,7 @@ export function QuickNav() {
           <li key={a.id} className="w-[5.5rem] md:w-auto">
             <a
               href={a.href}
-              className="card card-hover flex h-16 flex-col items-center justify-center gap-1 px-2 text-center md:h-auto md:flex-row md:gap-2.5 md:py-3"
+              className="card card-hover flex h-14 flex-col items-center justify-center gap-0.5 px-2 text-center md:h-auto md:flex-row md:gap-2.5 md:py-2.5"
             >
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-pill bg-brand-50 text-brand-600 md:h-9 md:w-9">
                 <Icon name={a.icon as IconName} size={19} />

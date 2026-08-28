@@ -47,7 +47,7 @@ const config: Config = {
       },
       fontSize: {
         // [size, { lineHeight, letterSpacing }] — ritmo vertical definido, no improvisado
-        display: ['clamp(1.625rem, 1.15rem + 2.4vw, 3.125rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' }],
+        display: ['clamp(1.5rem, 1.05rem + 1.55vw, 2.375rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' }],
         title:   ['clamp(1.375rem, 1.15rem + 1.15vw, 2rem)',    { lineHeight: '1.12', letterSpacing: '-0.02em', fontWeight: '800' }],
         subtitle:['clamp(1.0625rem, 1rem + 0.4vw, 1.25rem)',    { lineHeight: '1.3',  letterSpacing: '-0.01em', fontWeight: '700' }],
         'body-lg':['1.0625rem', { lineHeight: '1.6' }],

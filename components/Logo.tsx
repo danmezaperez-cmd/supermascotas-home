@@ -1,4 +1,17 @@
+import { logo } from '@/data/brand'
+
 export function Logo({ className = '', onDark = false }: { className?: string; onDark?: boolean }) {
+  // Logotipo oficial en cuanto existe assets/logo-supermascotas.png
+  if (logo) {
+    return (
+      <img
+        src={logo.src} width={logo.width} height={logo.height}
+        alt="Supermascotas" decoding="async"
+        className={`h-9 w-auto shrink-0 md:h-10 ${onDark ? 'brightness-0 invert' : ''} ${className}`}
+      />
+    )
+  }
+
   const mark = onDark ? '#FFFFFF' : '#173DA0'
   const paw = onDark ? '#173DA0' : '#FFFFFF'
   return (

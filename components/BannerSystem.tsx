@@ -9,9 +9,23 @@ import { Icon } from './Icon'
 /* ---------------------------------------------------------------------- */
 /* Superficies del sistema. Ningún color fuera de la paleta.               */
 /* ---------------------------------------------------------------------- */
-const SCRIM: Record<string, string> = {
-  brand: 'from-brand-900 via-brand-900/86 to-brand-900/5',
-  ink: 'from-[#0A1120] via-[#0A1120]/86 to-[#0A1120]/5',
+/**
+ * El banner es PARTIDO desde 768: panel de color a un lado, fotografía al otro.
+ * Antes el texto iba sobre la foto con un degradado suave y, medido en píxeles
+ * reales, el titular caía a 1,97:1 sobre el pelaje claro del gato. Un panel
+ * sólido hace que el contraste no dependa de la foto de turno, y además deja
+ * la imagen completa en vez de taparla con un velo.
+ *
+ * En móvil no hay sitio para dos columnas: la foto va de fondo con un velo
+ * que es color pleno donde vive el texto y se abre arriba.
+ */
+const FONDO: Record<string, string> = {
+  brand: 'bg-[#0A1B47]',
+  ink: 'bg-[#0A1120]',
+}
+const VELO_MOVIL: Record<string, string> = {
+  brand: 'bg-[linear-gradient(to_top,rgba(10,27,71,0.95)_0%,rgba(10,27,71,0.86)_62%,rgba(10,27,71,0.35)_100%)]',
+  ink: 'bg-[linear-gradient(to_top,rgba(10,17,32,0.95)_0%,rgba(10,17,32,0.86)_62%,rgba(10,17,32,0.35)_100%)]',
 }
 const PANEL: Record<string, string> = {
   lime: 'bg-lime-500 text-ink',
@@ -27,25 +41,33 @@ const PANEL: Record<string, string> = {
 
 function SlidePrincipal({ b, index, total }: { b: Banner; index: number; total: number }) {
   const foto = b.foto ? photos[b.foto] : null
-  const scrim = SCRIM[b.tono] ?? SCRIM.brand
+  const fondo = FONDO[b.tono] ?? FONDO.brand
+  const velo = VELO_MOVIL[b.tono] ?? VELO_MOVIL.brand
   return (
     <li
-      className="relative w-full shrink-0 snap-start overflow-hidden rounded-xl bg-brand-800"
+      className={`relative w-full shrink-0 snap-start overflow-hidden rounded-xl ${fondo}`}
       role="group"
       aria-roledescription="diapositiva"
       aria-label={`${index + 1} de ${total}: ${b.titulo}`}
     >
-      <div className="relative aspect-[16/9] w-full sm:aspect-[16/7] lg:aspect-[2.6/1]">
-        {foto && (
-          <img
-            src={foto.src} alt={foto.alt} width={foto.width} height={foto.height}
-            loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        )}
-        <div className={`absolute inset-0 bg-gradient-to-t ${scrim} md:bg-gradient-to-r`} />
-        <div className="on-dark absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:justify-center md:p-8 lg:p-10">
-          <div className="max-w-[24rem] md:max-w-[26rem]">
+      {/* El alto mínimo es un SUELO, no un techo: si la campaña trae más texto,
+          la caja crece en vez de recortarlo. Todas las diapositivas quedan a la
+          misma altura porque el carril es flex con estirado. */}
+      <div className="relative min-h-[11.5rem] w-full sm:min-h-[13rem] md:grid md:min-h-[15rem] md:grid-cols-[54%_46%] lg:min-h-[17rem] lg:grid-cols-[56%_44%]">
+        {/* Foto: fondo completo en móvil, columna propia desde 768 */}
+        <div className="absolute inset-0 md:relative md:inset-auto md:order-2">
+          {foto && (
+            <img
+              src={foto.src} alt={foto.alt} width={foto.width} height={foto.height}
+              loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchPriority={index === 0 ? 'high' : 'auto'}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+          <div className={`absolute inset-0 ${velo} md:hidden`} />
+        </div>
+
+        <div className="on-dark relative flex min-h-full flex-col justify-end p-4 sm:p-5 md:order-1 md:justify-center md:p-6 lg:p-8">
+          <div className="max-w-[24rem] md:max-w-none">
             <p className="mb-2 flex flex-wrap items-center gap-1.5">
               <span className="eyebrow-chip bg-sun-400 text-ink">{b.eyebrow}</span>
               {b.vigenteHasta && (
@@ -56,9 +78,9 @@ function SlidePrincipal({ b, index, total }: { b: Banner; index: number; total: 
             </p>
             <p className="text-display text-white text-shadow-soft">{b.titulo}</p>
             {b.bajada && (
-              <p className="mt-2 hidden max-w-[34ch] text-body-lg text-brand-100 sm:block">{b.bajada}</p>
+              <p className="mt-1.5 hidden max-w-[40ch] text-body text-brand-100 sm:block lg:text-body-lg">{b.bajada}</p>
             )}
-            <a href={b.cta.href} className="btn btn-lg btn-primary mt-4 bg-white text-brand-700 hover:bg-brand-50">
+            <a href={b.cta.href} className="btn btn-lg btn-primary mt-4 self-start bg-white text-brand-700 hover:bg-brand-50">
               {b.cta.label}
               <Icon name="chevronR" size={18} />
             </a>
@@ -126,27 +148,18 @@ function CarruselPrincipal() {
         ))}
       </ul>
 
-      {/* Flechas: control explícito del usuario, solo donde hay sitio para ellas. */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-between px-3 lg:flex">
+      {/* Control del carrusel: flechas y puntos juntos, fuera del área de texto.
+          En escritorio va dentro del banner —sobre una píldora opaca— para no
+          gastar altura del fold; en móvil, debajo. */}
+      <div className="mt-1.5 flex items-center justify-center gap-1 lg:absolute lg:bottom-3 lg:right-3 lg:mt-0 lg:rounded-pill lg:bg-ink/60 lg:px-1 lg:backdrop-blur-sm">
         <button
           type="button" onClick={() => { detener(); irA(Math.max(0, activo - 1)) }} disabled={activo === 0}
           aria-label="Campaña anterior"
-          className="pointer-events-auto grid h-11 w-11 place-items-center rounded-pill bg-white text-brand-700 shadow-e3 transition duration-base ease-soft hover:bg-brand-50 disabled:opacity-0"
+          className="hidden h-9 w-9 place-items-center rounded-pill text-white transition duration-base ease-soft hover:bg-white/20 disabled:opacity-30 lg:grid"
         >
-          <Icon name="chevronL" size={20} />
+          <Icon name="chevronL" size={18} />
         </button>
-        <button
-          type="button" onClick={() => { detener(); irA(Math.min(slides.length - 1, activo + 1)) }} disabled={activo === slides.length - 1}
-          aria-label="Campaña siguiente"
-          className="pointer-events-auto grid h-11 w-11 place-items-center rounded-pill bg-white text-brand-700 shadow-e3 transition duration-base ease-soft hover:bg-brand-50 disabled:opacity-0"
-        >
-          <Icon name="chevronR" size={20} />
-        </button>
-      </div>
 
-      {/* Puntos con área táctil real de 44×44. En escritorio van dentro del
-          banner —sobre una píldora opaca— para no gastar altura del fold. */}
-      <div className="mt-1.5 flex items-center justify-center gap-1 lg:absolute lg:bottom-3 lg:right-3 lg:mt-0 lg:rounded-pill lg:bg-ink/55 lg:px-1 lg:backdrop-blur-sm">
         {slides.map((b, i) => (
           <button
             key={b.id}
@@ -163,6 +176,14 @@ function CarruselPrincipal() {
             />
           </button>
         ))}
+
+        <button
+          type="button" onClick={() => { detener(); irA(Math.min(slides.length - 1, activo + 1)) }} disabled={activo === slides.length - 1}
+          aria-label="Campaña siguiente"
+          className="hidden h-9 w-9 place-items-center rounded-pill text-white transition duration-base ease-soft hover:bg-white/20 disabled:opacity-30 lg:grid"
+        >
+          <Icon name="chevronR" size={18} />
+        </button>
       </div>
     </div>
   )

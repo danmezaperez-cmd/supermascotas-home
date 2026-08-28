@@ -53,7 +53,7 @@ export function SectionHeader({
   accion?: ReactNode; tone?: 'light' | 'dark'
 }) {
   return (
-    <div className="mb-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 md:mb-4">
+    <div className="mb-2.5 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 md:mb-4">
       <div className="min-w-0">
         {eyebrow && (
           <p className={`mb-1.5 text-eyebrow uppercase ${tone === 'dark' ? 'text-brand-200' : 'text-brand-600'}`}>

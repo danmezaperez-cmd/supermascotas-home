@@ -148,10 +148,13 @@ export function ProductArt({ product, className = '' }: { product: Product; clas
 
   if (product.packshot) {
     return (
-      <img
-        src={product.packshot} alt={`${product.marca} ${product.nombre}`} loading="lazy" decoding="async"
-        className={`h-full w-full object-contain ${className}`}
-      />
+      <div className={`grid h-full w-full place-items-center bg-white p-1.5 ${className}`}>
+        <img
+          src={product.packshot} alt={`${product.marca} ${product.nombre}, ${product.presentacion}`}
+          loading="lazy" decoding="async"
+          className="h-full w-full object-contain"
+        />
+      </div>
     )
   }
 
