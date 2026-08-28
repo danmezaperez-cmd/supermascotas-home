@@ -5,3 +5,5 @@ dist
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+audit/shots/
+dist/

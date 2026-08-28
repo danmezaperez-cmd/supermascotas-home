@@ -83,7 +83,7 @@ El proyecto exporta estático (`output: 'export'` en `next.config.mjs`) y admite
 ```bash
 NEXT_PUBLIC_BASE_PATH=/supermascotas-home npm run build
 touch out/.nojekyll
-npx --yes gh-pages -d out -t   # o el flujo con git worktree de scripts/deploy-pages.sh
+./scripts/deploy-pages.sh      # empuja out/ a la rama gh-pages
 ```
 
 ### Vercel
