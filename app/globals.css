@@ -90,7 +90,7 @@
   .link-tap { @apply inline-flex min-h-11 items-center; }
 
   .eyebrow-chip {
-    @apply inline-flex max-w-full items-center gap-1.5 rounded-pill px-2.5 py-1 text-eyebrow uppercase;
+    @apply inline-flex max-w-full items-center gap-1.5 rounded-pill px-2 py-1 text-eyebrow uppercase;
     overflow-wrap: anywhere;
   }
 }

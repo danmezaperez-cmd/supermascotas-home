@@ -18,10 +18,10 @@ export function Newsletter() {
   }
 
   return (
-    <section id="cuenta" aria-labelledby="news-h" className="mt-10 md:mt-14">
+    <section id="cuenta" aria-labelledby="news-h" className="mt-12 md:mt-20">
       <div className="shell">
-        <div className="overflow-hidden rounded-2xl bg-brand-700 p-5 text-white md:p-10 on-dark">
-          <div className="grid gap-5 md:grid-cols-2 md:items-center md:gap-10">
+        <div className="overflow-hidden rounded-2xl bg-brand-700 p-6 text-white md:p-12 on-dark">
+          <div className="grid gap-6 md:grid-cols-2 md:items-center md:gap-12">
             <div>
               <p className="mb-2 text-eyebrow uppercase text-sun-300">Primera compra</p>
               <h2 id="news-h" className="text-title text-white">10% de descuento con tu correo</h2>
@@ -52,7 +52,7 @@ export function Newsletter() {
                 </p>
               ) : (
                 <>
-                  <label htmlFor="news-email" className="mb-1.5 block text-micro font-extrabold uppercase tracking-wide text-brand-200">
+                  <label htmlFor="news-email" className="mb-1.5 block text-small font-extrabold uppercase tracking-wide text-brand-200">
                     Tu correo
                   </label>
                   <div className="flex flex-col gap-2.5 sm:flex-row">
@@ -70,7 +70,7 @@ export function Newsletter() {
                       ) : 'Quiero el 10%'}
                     </button>
                   </div>
-                  <p className="mt-2 text-micro text-brand-200">
+                  <p className="mt-2 text-small text-brand-200">
                     Válido en tu primera compra sobre $99.900. Puedes darte de baja cuando quieras.
                   </p>
                 </>

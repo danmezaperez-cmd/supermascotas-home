@@ -101,6 +101,49 @@ const zoom = await pz.evaluate(() => {
 await pz.screenshot({ path: 'audit/shots/zoom-200.png', fullPage: false })
 await ctxZ.close()
 
+/* ---------- WCAG 1.4.12 Espaciado de texto ----------
+   El usuario debe poder forzar interlineado 1,5 · espacio entre párrafos 2 ·
+   interletraje 0,12 · espacio entre palabras 0,16 sin perder contenido. */
+const espaciado = {}
+for (const [w, h, label] of [[390, 844, 'movil'], [1280, 800, 'escritorio']]) {
+  const ctx = await browser.newContext({ viewport: { width: w, height: h } })
+  const page = await ctx.newPage()
+  await page.goto(URL_BASE, { waitUntil: 'networkidle' })
+  await page.addStyleTag({
+    content: `* , *::before, *::after {
+      line-height: 1.5 !important;
+      letter-spacing: 0.12em !important;
+      word-spacing: 0.16em !important;
+    }
+    p, li, h1, h2, h3, h4, blockquote { margin-bottom: 2em !important; }`,
+  })
+  await page.waitForTimeout(500)
+  espaciado[label] = await page.evaluate(() => {
+    const de = document.documentElement
+    const recortados = []
+    for (const el of document.querySelectorAll('body *')) {
+      const cs = getComputedStyle(el)
+      const clipa = cs.overflow === 'hidden' || cs.overflowY === 'hidden'
+      if (!clipa) continue
+      const r = el.getBoundingClientRect()
+      if (r.height === 0) continue
+      // Se ignoran los recortes deliberados de una o dos líneas
+      if (cs.webkitLineClamp && cs.webkitLineClamp !== 'none') continue
+      // .sr-only recorta a 1×1 a propósito: no es pérdida de contenido visible
+      if (el.classList.contains('sr-only') || el.closest('.sr-only')) continue
+      if (el.scrollHeight > el.clientHeight + 2) {
+        recortados.push(`${el.tagName.toLowerCase()}.${(el.className || '').toString().split(' ').slice(0, 3).join('.')} (+${el.scrollHeight - el.clientHeight}px)`)
+      }
+    }
+    return {
+      desbordeHorizontal: de.scrollWidth > de.clientWidth + 1,
+      recortados: [...new Set(recortados)].slice(0, 10),
+    }
+  })
+  await page.screenshot({ path: `audit/shots/espaciado-${label}.png` })
+  await ctx.close()
+}
+
 /* ---------- teclado y elementos ocultos alcanzables ---------- */
 const ctxK = await browser.newContext({ viewport: { width: 1440, height: 900 } })
 const pk = await ctxK.newPage()
@@ -139,7 +182,7 @@ teclado.focoRestaurado = await pk.evaluate(() => document.activeElement?.getAttr
 await ctxK.close()
 await browser.close()
 
-const out = { contraste: resultados, zoom200: zoom, teclado }
+const out = { contraste: resultados, zoom200: zoom, espaciadoTexto: espaciado, teclado }
 writeFileSync('audit/a11y.json', JSON.stringify(out, null, 2))
 for (const [k, v] of Object.entries(resultados)) {
   console.log(`\n=== ${k} ===`)
@@ -148,4 +191,5 @@ for (const [k, v] of Object.entries(resultados)) {
   console.log('áreas táctiles < 44 px:', v.chicos.length ? v.chicos : 'ninguna')
 }
 console.log('\nzoom 200 %:', zoom)
+console.log('espaciado de texto WCAG 1.4.12:', espaciado)
 console.log('teclado:', teclado)

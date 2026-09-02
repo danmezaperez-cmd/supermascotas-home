@@ -30,7 +30,7 @@ export function Subscription() {
   const ahorroAnual = (p.precio - precioSusc) * entregas
 
   return (
-    <section id="suscripcion" aria-labelledby="susc-h" className="mt-10 bg-cream py-10 md:mt-14 md:py-14">
+    <section id="suscripcion" aria-labelledby="susc-h" className="mt-12 bg-cream py-12 md:mt-20 md:py-20">
       <div className="shell">
         <SectionHeader
           id="susc-h"
@@ -41,10 +41,10 @@ export function Subscription() {
 
         <div className="grid min-w-0 gap-4 lg:grid-cols-[1.15fr_1fr] lg:gap-6">
           {/* Configurador */}
-          <div className="card min-w-0 p-4 md:p-6">
+          <div className="card min-w-0 p-5 md:p-7">
             <div className="grid min-w-0 gap-4 sm:grid-cols-2">
               <div className="min-w-0">
-                <label htmlFor="susc-producto" className="mb-1.5 block text-micro font-extrabold uppercase tracking-wide text-muted">
+                <label htmlFor="susc-producto" className="mb-1.5 block text-small font-extrabold uppercase tracking-wide text-muted">
                   Alimento
                 </label>
                 <select
@@ -57,7 +57,7 @@ export function Subscription() {
                 </select>
               </div>
               <div className="min-w-0">
-                <span className="mb-1.5 block text-micro font-extrabold uppercase tracking-wide text-muted">Frecuencia</span>
+                <span className="mb-1.5 block text-small font-extrabold uppercase tracking-wide text-muted">Frecuencia</span>
                 <div className="flex gap-2" role="group" aria-label="Frecuencia de entrega">
                   {FRECUENCIAS.map((f) => (
                     <button
@@ -75,7 +75,7 @@ export function Subscription() {
               <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md"><ProductArt product={p} /></div>
               <div className="min-w-0">
                 <p className="truncate text-body font-bold">{p.marca} {p.nombre}</p>
-                <p className="text-micro text-muted">
+                <p className="text-small text-muted">
                   {p.presentacion} · {pricePerKilo(precioSusc, p.pesoKg)} con suscripción
                 </p>
               </div>
@@ -97,7 +97,7 @@ export function Subscription() {
                 </dd>
               </div>
             </dl>
-            <p className="mt-1.5 text-micro text-muted">
+            <p className="mt-1.5 text-small text-muted">
               {entregas} entregas al año, {formatCOP(p.precio - precioSusc)} de ahorro en cada una.
             </p>
 
@@ -109,7 +109,7 @@ export function Subscription() {
               <Icon name="repeat" size={19} />
               Suscribirme y ahorrar {formatCOP(ahorroAnual)} al año
             </button>
-            <p className="mt-2 text-center text-micro text-muted">Sin permanencia. Primer envío en 24 h.</p>
+            <p className="mt-2 text-center text-small text-muted">Sin permanencia. Primer envío en 24 h.</p>
           </div>
 
           {/* Por qué conviene */}
@@ -120,7 +120,7 @@ export function Subscription() {
               { icon: 'truck' as const, t: 'Siempre con envío gratis', d: 'Toda suscripción supera el umbral, sin importar el monto del pedido.' },
               { icon: 'wallet' as const, t: 'Pagas al recibir si quieres', d: 'Contra entrega, PSE o tarjeta. Cambias el medio de pago cuando quieras.' },
             ].map((b) => (
-              <li key={b.t} className="card flex gap-3 p-4">
+              <li key={b.t} className="card flex gap-3.5 p-5">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-pill bg-brand-50 text-brand-600">
                   <Icon name={b.icon} size={20} />
                 </span>

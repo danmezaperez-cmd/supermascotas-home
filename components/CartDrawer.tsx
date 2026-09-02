@@ -99,7 +99,7 @@ export function CartDrawer() {
                     <p className="text-body font-bold leading-snug">
                       {i.product.marca} {i.product.nombre}
                     </p>
-                    <p className="text-micro text-muted">{i.product.presentacion}</p>
+                    <p className="text-small text-muted">{i.product.presentacion}</p>
                     {i.suscripcion && (
                       <span className="mt-1 inline-flex eyebrow-chip bg-lime-100 text-lime-800">
                         <Icon name="repeat" size={12} /> Suscripción −{Math.round(SUSCRIPCION_OFF * 100)}%
@@ -140,7 +140,7 @@ export function CartDrawer() {
           {/* Venta cruzada: sube el ticket y acerca el umbral de envío gratis. */}
           {sugeridos.length > 0 && (
             <section aria-labelledby="cross-h" className="border-t border-line py-4">
-              <h3 id="cross-h" className="mb-2.5 text-micro font-extrabold uppercase tracking-wide text-muted">
+              <h3 id="cross-h" className="mb-2.5 text-small font-extrabold uppercase tracking-wide text-muted">
                 Suele comprarse junto
               </h3>
               <ul className="space-y-2">
@@ -149,7 +149,7 @@ export function CartDrawer() {
                     <div className="h-11 w-11 shrink-0 overflow-hidden rounded-sm"><ProductArt product={s} /></div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-body font-bold">{s.marca} {s.nombre}</p>
-                      <p className="text-micro text-muted">{s.presentacion} · {formatCOP(s.precio)}</p>
+                      <p className="text-small text-muted">{s.presentacion} · {formatCOP(s.precio)}</p>
                     </div>
                     <button type="button" onClick={() => add(s.id)} className="btn btn-sm btn-ghost shrink-0">
                       <Icon name="plus" size={15} /> Agregar
@@ -166,11 +166,11 @@ export function CartDrawer() {
             <span className="text-body font-bold">Subtotal</span>
             <span className="text-[1.25rem] font-extrabold tracking-tight">{formatCOP(subtotal)}</span>
           </div>
-          <p className="mt-0.5 text-micro text-muted">Impuestos incluidos. El envío se calcula al pagar.</p>
+          <p className="mt-0.5 text-small text-muted">Impuestos incluidos. El envío se calcula al pagar.</p>
           <button type="button" disabled={items.length === 0} className="btn btn-lg btn-primary mt-3 w-full">
             Finalizar compra
           </button>
-          <p className="mt-2 flex items-center justify-center gap-1.5 text-micro text-muted">
+          <p className="mt-2 flex items-center justify-center gap-1.5 text-small text-muted">
             <Icon name="shield" size={14} className="text-lime-600" /> Pago seguro · PSE, tarjeta o contra entrega
           </p>
         </div>

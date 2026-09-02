@@ -15,7 +15,7 @@ const ICONOS: Record<string, IconName> = {
 export function Clinic() {
   const foto = photos.clinicaEquipo
   return (
-    <section id="clinica" aria-labelledby="clinica-h" className="mt-10 bg-ink py-10 text-white md:mt-14 md:py-14 on-dark">
+    <section id="clinica" aria-labelledby="clinica-h" className="mt-12 bg-ink py-12 text-white md:mt-20 md:py-20 on-dark">
       <div className="shell">
         <SectionHeader
           id="clinica-h"
@@ -27,7 +27,7 @@ export function Clinic() {
 
         <div className="grid min-w-0 gap-4 lg:grid-cols-[1fr_1.1fr] lg:gap-6">
           <div className="relative min-w-0 overflow-hidden rounded-xl">
-            <div className="relative aspect-[3/2]">
+            <div className="relative h-full min-h-[16rem]">
               <img
                 src={foto.src} alt={foto.alt} width={foto.width} height={foto.height} loading="lazy" decoding="async"
                 className="absolute inset-0 h-full w-full object-cover"
@@ -46,16 +46,16 @@ export function Clinic() {
           <div className="min-w-0">
             <ul className="divide-y divide-white/12 overflow-hidden rounded-xl bg-white/6">
               {serviciosClinica.map((s) => (
-                <li key={s.id} className="flex flex-wrap items-center gap-3 p-3.5 transition-colors duration-base ease-soft hover:bg-white/8">
+                <li key={s.id} className="flex flex-wrap items-center gap-3.5 p-4 transition-colors duration-base ease-soft hover:bg-white/8">
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-pill bg-white/12 text-sun-300">
                     <Icon name={ICONOS[s.id]} size={20} />
                   </span>
                   <span className="min-w-0 flex-1 basis-32">
                     <span className="block text-body font-bold">{s.titulo}</span>
-                    <span className="block text-micro text-brand-200">{s.detalle}</span>
+                    <span className="block text-small text-brand-200">{s.detalle}</span>
                   </span>
                   <span className="ml-auto shrink-0 text-right">
-                    <span className="block text-micro text-brand-200">desde</span>
+                    <span className="block text-small text-brand-200">desde</span>
                     <span className="block text-body font-extrabold">{formatCOP(s.desde)}</span>
                   </span>
                 </li>
@@ -69,7 +69,7 @@ export function Clinic() {
                 <Icon name="phone" size={19} /> Llamar a urgencias
               </a>
             </div>
-            <p className="mt-2.5 text-micro text-brand-200">
+            <p className="mt-2.5 text-small text-brand-200">
               Consultorios en Paso Ancho y Ciudad Jardín. Urgencias las 24 h en Paso Ancho.
             </p>
           </div>

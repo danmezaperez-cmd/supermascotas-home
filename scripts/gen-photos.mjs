@@ -43,6 +43,11 @@ const PLAN = [
   ['bannerGatos',        'judy-beth-morris-5Bi6MWlWMbw-unsplash.jpg',        800, 600, 60, 'Gato blanco de pelo largo siendo auscultado con un fonendoscopio'],
   ['bannerAgenda',       'priscilla-du-preez-2hc6ocDAsNY-unsplash.jpg',      800, 600, 60, 'Pug negro con collar isabelino transparente mirando a la cámara'],
   ['clinicaEquipo',      'pexels-gustavo-fring-6816864.jpg',                1000, 667, 62, 'Dos veterinarios con guantes atendiendo a un conejo sobre la mesa de consulta'],
+  // Fachadas reales de las sedes. Los originales son de baja resolución: sirven
+  // como marcador de posición hasta que llegue la fotografía definitiva.
+  ['sede1',              'tienda1.png',                                     360, 216, 68, 'Fachada de una sede de Supermascotas con aviso azul y vitrinas de producto'],
+  ['sede2',              'Tienda2.png',                                     360, 216, 68, 'Fachada de una sede de Supermascotas con aviso azul sobre la vitrina'],
+  ['sede3',              'Tienda3.png',                                     360, 216, 68, 'Fachada de una sede de Supermascotas de esquina, con entrada de vidrio'],
 ]
 
 let total = 0

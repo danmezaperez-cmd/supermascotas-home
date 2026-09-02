@@ -13,8 +13,8 @@ export function Stars({ value, reviews, size = 13 }: { value: number; reviews?: 
           <Icon key={i} name="star" size={size} filled className={i < full ? 'text-sun-500' : 'text-brand-100'} />
         ))}
       </span>
-      <span className="text-micro font-bold text-ink">{value.toFixed(1)}</span>
-      {reviews !== undefined && <span className="text-micro text-muted">({reviews})</span>}
+      <span className="text-small font-bold text-ink">{value.toFixed(1)}</span>
+      {reviews !== undefined && <span className="text-small text-muted">({reviews})</span>}
       <span className="sr-only">
         {value.toFixed(1)} de 5 estrellas{reviews !== undefined ? `, ${reviews} reseñas` : ''}
       </span>
@@ -34,14 +34,14 @@ export function Price({ p, compact = false }: { p: Product; compact?: boolean })
         </span>
         {off > 0 && (
           <>
-            <s className="text-micro text-muted">{formatCOP(p.precioAntes!)}</s>
-            <span className="rounded-pill bg-accent-50 px-1.5 py-0.5 text-micro font-extrabold text-accent-700">
+            <s className="text-small text-muted">{formatCOP(p.precioAntes!)}</s>
+            <span className="rounded-pill bg-accent-50 px-2 py-0.5 text-small font-extrabold text-accent-700">
               −{off}%
             </span>
           </>
         )}
       </div>
-      {kilo && <p className="mt-0.5 text-micro text-muted">{kilo}</p>}
+      {kilo && <p className="mt-1 text-small text-muted">{kilo}</p>}
     </div>
   )
 }
@@ -53,16 +53,16 @@ export function SectionHeader({
   accion?: ReactNode; tone?: 'light' | 'dark'
 }) {
   return (
-    <div className="mb-2.5 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 md:mb-4">
+    <div className="mb-3 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 md:mb-5">
       <div className="min-w-0">
         {eyebrow && (
-          <p className={`mb-1.5 text-eyebrow uppercase ${tone === 'dark' ? 'text-brand-200' : 'text-brand-600'}`}>
+          <p className={`mb-2 text-eyebrow uppercase ${tone === 'dark' ? 'text-brand-200' : 'text-brand-600'}`}>
             {eyebrow}
           </p>
         )}
         <h2 id={id} className={`text-title ${tone === 'dark' ? 'text-white' : 'text-ink'}`}>{titulo}</h2>
         {bajada && (
-          <p className={`mt-1.5 max-w-[52ch] text-body ${tone === 'dark' ? 'text-brand-100' : 'text-muted'}`}>{bajada}</p>
+          <p className={`mt-2 max-w-[54ch] text-body ${tone === 'dark' ? 'text-brand-100' : 'text-muted'}`}>{bajada}</p>
         )}
       </div>
       {accion}

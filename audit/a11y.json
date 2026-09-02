@@ -11,9 +11,7 @@
       "fallos": [],
       "sobreImagen": [],
       "chicos": [
-        "a \"Saltar al contenido\" 1×1",
-        "button \"Campaña anterior\" 36×36",
-        "button \"Campaña siguiente\" 36×36"
+        "a \"Saltar al contenido\" 1×1"
       ]
     }
   },
@@ -21,6 +19,16 @@
     "scrollW": 195,
     "clientW": 195,
     "desborde": false
+  },
+  "espaciadoTexto": {
+    "movil": {
+      "desbordeHorizontal": false,
+      "recortados": []
+    },
+    "escritorio": {
+      "desbordeHorizontal": false,
+      "recortados": []
+    }
   },
   "teclado": {
     "ocultosAlcanzables": [],

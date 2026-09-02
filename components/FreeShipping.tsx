@@ -16,7 +16,7 @@ export function FreeShipping({ tone = 'light' }: { tone?: 'light' | 'dark' }) {
 
   return (
     <div>
-      <p className={`flex items-center gap-1.5 text-micro font-bold ${tone === 'dark' ? 'text-white' : 'text-ink'}`}>
+      <p className={`flex items-center gap-1.5 text-small font-bold ${tone === 'dark' ? 'text-white' : 'text-ink'}`}>
         <Icon name="truck" size={15} className={logrado ? 'text-lime-600' : 'text-brand-600'} />
         {logrado ? (
           <span>¡Listo! Tu envío es <strong>gratis</strong>.</span>

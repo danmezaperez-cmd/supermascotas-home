@@ -47,15 +47,15 @@ function Envase({ p, t }: { p: Product; t: Tono }) {
   const marca = (
     <>
       <text
-        x="100" y="106" textAnchor="middle" fill={t.tinta}
-        fontSize={p.marca.length > 10 ? 14 : 17} fontWeight={800} letterSpacing="-0.4"
+        x="100" y="105" textAnchor="middle" fill={t.tinta}
+        fontSize={p.marca.length > 10 ? 16 : 19} fontWeight={800} letterSpacing="-0.4"
         fontFamily="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
       >
         {p.marca}
       </text>
       <text
-        x="100" y="122" textAnchor="middle" fill={t.tinta} opacity=".7"
-        fontSize="9.5" fontWeight={700} letterSpacing="0.7"
+        x="100" y="124" textAnchor="middle" fill={t.tinta} opacity=".72"
+        fontSize="11.5" fontWeight={700} letterSpacing="0.5"
         fontFamily="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
       >
         {p.presentacion.toUpperCase()}

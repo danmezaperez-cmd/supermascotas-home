@@ -32,7 +32,7 @@ export function StickyBuyBar() {
       <FreeShipping />
       <div className="mt-2 flex items-center gap-3">
         <div className="min-w-0">
-          <p className="text-micro text-muted">{count} {count === 1 ? 'producto' : 'productos'}</p>
+          <p className="text-small text-muted">{count} {count === 1 ? 'producto' : 'productos'}</p>
           <p className="text-body font-extrabold leading-tight">{formatCOP(subtotal)}</p>
         </div>
         <button type="button" onClick={openCart} className="btn btn-lg btn-primary ml-auto flex-1">

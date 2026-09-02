@@ -6,11 +6,11 @@ import { marcas } from '@/data/site'
  */
 export function Brands() {
   return (
-    <section aria-labelledby="marcas-h" className="shell pt-10 md:pt-14">
-      <h2 id="marcas-h" className="mb-3 text-micro font-extrabold uppercase tracking-[0.12em] text-muted">
+    <section aria-labelledby="marcas-h" className="shell pt-12 md:pt-20">
+      <h2 id="marcas-h" className="mb-4 text-eyebrow uppercase text-muted">
         Trabajamos con
       </h2>
-      <ul className="rail rail-bleed gap-2 md:flex-wrap md:overflow-visible md:[margin-inline:0] md:[padding-inline:0]">
+      <ul className="rail rail-bleed gap-2.5 md:flex-wrap md:overflow-visible md:[margin-inline:0] md:[padding-inline:0]">
         {marcas.map((m) => (
           <li key={m}>
             <span className="inline-flex h-11 items-center rounded-pill bg-cream px-4 text-body font-extrabold tracking-tight text-ink shadow-inset1">

@@ -24,15 +24,25 @@ const FONDO: Record<string, string> = {
   ink: 'bg-[#0A1120]',
 }
 const VELO_MOVIL: Record<string, string> = {
-  brand: 'bg-[linear-gradient(to_top,rgba(10,27,71,0.95)_0%,rgba(10,27,71,0.86)_62%,rgba(10,27,71,0.35)_100%)]',
-  ink: 'bg-[linear-gradient(to_top,rgba(10,17,32,0.95)_0%,rgba(10,17,32,0.86)_62%,rgba(10,17,32,0.35)_100%)]',
+  brand: 'bg-[linear-gradient(to_top,rgba(10,27,71,0.95)_0%,rgba(10,27,71,0.88)_52%,rgba(10,27,71,0.2)_100%)]',
+  ink: 'bg-[linear-gradient(to_top,rgba(10,17,32,0.95)_0%,rgba(10,17,32,0.88)_52%,rgba(10,17,32,0.2)_100%)]',
 }
-const PANEL: Record<string, string> = {
-  lime: 'bg-lime-500 text-ink',
-  sun: 'bg-sun-400 text-ink',
-  brand: 'bg-brand-700 text-white',
-  ink: 'bg-ink text-white',
-  cream: 'bg-cream text-ink',
+/**
+ * Superficies de los banners secundarios.
+ *
+ * Antes eran verde lima y amarillo con texto negro, y el antetítulo iba en un
+ * tono más oscuro del propio panel: el verde con negro se ensuciaba y esas
+ * etiquetas quedaban fuera del sistema. Ahora el panel es una versión profunda
+ * del color de marca con texto blanco, y el antetítulo es una píldora del tono
+ * CLARO de la misma familia —el mismo recurso que ya usa el banner principal—.
+ */
+type Panel = { superficie: string; chip: string; cta: string }
+const PANEL: Record<string, Panel> = {
+  lime:  { superficie: 'bg-[#44601A] text-white', chip: 'bg-lime-300 text-ink',  cta: 'text-lime-200' },
+  sun:   { superficie: 'bg-brand-600 text-white', chip: 'bg-sun-400 text-ink',   cta: 'text-sun-300' },
+  brand: { superficie: 'bg-brand-700 text-white', chip: 'bg-sun-400 text-ink',   cta: 'text-brand-100' },
+  ink:   { superficie: 'bg-ink text-white',       chip: 'bg-sun-400 text-ink',   cta: 'text-brand-100' },
+  cream: { superficie: 'bg-cream text-ink',       chip: 'bg-brand-600 text-white', cta: 'text-brand-700' },
 }
 
 /* ---------------------------------------------------------------------- */
@@ -51,9 +61,11 @@ function SlidePrincipal({ b, index, total }: { b: Banner; index: number; total: 
       aria-label={`${index + 1} de ${total}: ${b.titulo}`}
     >
       {/* El alto mínimo es un SUELO, no un techo: si la campaña trae más texto,
-          la caja crece en vez de recortarlo. Todas las diapositivas quedan a la
-          misma altura porque el carril es flex con estirado. */}
-      <div className="relative min-h-[11.5rem] w-full sm:min-h-[13rem] md:grid md:min-h-[15rem] md:grid-cols-[54%_46%] lg:min-h-[17rem] lg:grid-cols-[56%_44%]">
+          la caja crece en vez de recortarlo. El carril es flex con estirado, así
+          que todas las diapositivas miden lo mismo; `h-full` es imprescindible
+          para que la foto llegue al borde inferior en las diapositivas más
+          bajas —sin él quedaba una franja de color bajo la imagen. */}
+      <div className="relative h-full min-h-[11.5rem] w-full sm:min-h-[13rem] md:grid md:min-h-[15rem] md:grid-cols-[54%_46%] lg:min-h-[15rem] lg:grid-cols-[56%_44%]">
         {/* Foto: fondo completo en móvil, columna propia desde 768 */}
         <div className="absolute inset-0 md:relative md:inset-auto md:order-2">
           {foto && (
@@ -66,7 +78,7 @@ function SlidePrincipal({ b, index, total }: { b: Banner; index: number; total: 
           <div className={`absolute inset-0 ${velo} md:hidden`} />
         </div>
 
-        <div className="on-dark relative flex min-h-full flex-col justify-end p-4 sm:p-5 md:order-1 md:justify-center md:p-6 lg:p-8">
+        <div className="on-dark relative flex min-h-full flex-col justify-end p-4 sm:p-5 md:order-1 md:justify-center md:p-6 lg:p-7">
           <div className="max-w-[24rem] md:max-w-none">
             <p className="mb-2 flex flex-wrap items-center gap-1.5">
               <span className="eyebrow-chip bg-sun-400 text-ink">{b.eyebrow}</span>
@@ -76,11 +88,16 @@ function SlidePrincipal({ b, index, total }: { b: Banner; index: number; total: 
                 </span>
               )}
             </p>
-            <p data-banner="titulo" className="text-display text-white text-shadow-soft">{b.titulo}</p>
+            <p
+              data-banner="titulo"
+              className="text-[1.625rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-white text-shadow-soft md:text-[1.75rem] lg:text-[2rem] xl:text-[2.375rem]"
+            >
+              {b.titulo}
+            </p>
             {b.bajada && (
-              <p data-banner="bajada" className="mt-1.5 hidden max-w-[40ch] text-body text-brand-100 sm:block lg:text-body-lg">{b.bajada}</p>
+              <p data-banner="bajada" className="mt-1.5 max-w-[42ch] text-small text-brand-100 sm:text-body lg:text-body-lg">{b.bajada}</p>
             )}
-            <a href={b.cta.href} className="btn btn-lg btn-primary mt-4 self-start bg-white text-brand-700 hover:bg-brand-50">
+            <a href={b.cta.href} className="btn btn-primary mt-4 self-start bg-white text-brand-700 hover:bg-brand-50 sm:btn-lg">
               {b.cta.label}
               <Icon name="chevronR" size={18} />
             </a>
@@ -132,7 +149,7 @@ function CarruselPrincipal() {
 
   return (
     <div
-      className="relative"
+      className="relative lg:h-full"
       role="group"
       aria-roledescription="carrusel"
       aria-label="Campañas destacadas"
@@ -142,7 +159,7 @@ function CarruselPrincipal() {
       onWheel={detener}
       onFocusCapture={detener}
     >
-      <ul ref={trackRef} className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain no-scrollbar">
+      <ul ref={trackRef} className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain no-scrollbar lg:h-full">
         {slides.map((b, i) => (
           <SlidePrincipal key={b.id} b={b} index={i} total={slides.length} />
         ))}
@@ -151,11 +168,11 @@ function CarruselPrincipal() {
       {/* Control del carrusel: flechas y puntos juntos, fuera del área de texto.
           En escritorio va dentro del banner —sobre una píldora opaca— para no
           gastar altura del fold; en móvil, debajo. */}
-      <div className="mt-1.5 flex items-center justify-center gap-1 lg:absolute lg:bottom-3 lg:right-3 lg:mt-0 lg:rounded-pill lg:bg-ink/60 lg:px-1 lg:backdrop-blur-sm">
+      <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1 rounded-pill bg-ink/60 px-1 backdrop-blur-sm lg:bottom-3 lg:right-3">
         <button
           type="button" onClick={() => { detener(); irA(Math.max(0, activo - 1)) }} disabled={activo === 0}
           aria-label="Campaña anterior"
-          className="hidden h-9 w-9 place-items-center rounded-pill text-white transition duration-base ease-soft hover:bg-white/20 disabled:opacity-30 lg:grid"
+          className="hidden h-11 w-11 place-items-center rounded-pill text-white transition duration-base ease-soft hover:bg-white/20 disabled:opacity-30 lg:grid"
         >
           <Icon name="chevronL" size={18} />
         </button>
@@ -167,7 +184,7 @@ function CarruselPrincipal() {
             onClick={() => { detener(); irA(i) }}
             aria-label={`Ir a la campaña ${i + 1}: ${b.titulo}`}
             aria-current={i === activo}
-            className="tap relative grid h-6 place-items-center px-2"
+            className="tap relative grid h-5 place-items-center px-2"
           >
             <span
               className={`block h-1.5 rounded-pill transition-[width,background-color] duration-slow ease-soft ${
@@ -180,7 +197,7 @@ function CarruselPrincipal() {
         <button
           type="button" onClick={() => { detener(); irA(Math.min(slides.length - 1, activo + 1)) }} disabled={activo === slides.length - 1}
           aria-label="Campaña siguiente"
-          className="hidden h-9 w-9 place-items-center rounded-pill text-white transition duration-base ease-soft hover:bg-white/20 disabled:opacity-30 lg:grid"
+          className="hidden h-11 w-11 place-items-center rounded-pill text-white transition duration-base ease-soft hover:bg-white/20 disabled:opacity-30 lg:grid"
         >
           <Icon name="chevronR" size={18} />
         </button>
@@ -195,22 +212,25 @@ function CarruselPrincipal() {
 
 function BannerSecundario({ b }: { b: Banner }) {
   const foto = b.foto ? photos[b.foto] : null
+  const panel = PANEL[b.tono] ?? PANEL.brand
   return (
     <a
       href={b.cta.href}
       aria-label={`${b.eyebrow}: ${b.titulo}. ${b.cta.label}`}
-      className={`group relative flex h-24 w-[16.5rem] shrink-0 snap-start overflow-hidden rounded-xl shadow-inset1 transition-shadow duration-base ease-soft hover:shadow-e2 sm:h-28 sm:w-[19rem] md:w-auto lg:h-full ${PANEL[b.tono]}`}
+      className={`group relative flex min-h-[6.75rem] w-[17rem] shrink-0 snap-start overflow-hidden rounded-xl transition-shadow duration-base ease-soft hover:shadow-e2 sm:min-h-[8rem] sm:w-[21rem] md:w-auto lg:h-full ${panel.superficie}`}
     >
-      <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 p-2.5 sm:gap-1 sm:p-3.5 lg:p-4 xl:p-5">
-        <span className="text-eyebrow uppercase opacity-75">{b.eyebrow}</span>
-        <span className="line-clamp-2 text-body font-extrabold leading-tight sm:text-[1.0625rem] xl:text-subtitle">{b.titulo}</span>
-        <span className="mt-0.5 inline-flex items-center gap-1 text-micro font-extrabold underline-offset-4 group-hover:underline">
+      <div className="flex min-w-0 flex-1 flex-col justify-center gap-1.5 p-3 sm:p-4 xl:p-5">
+        <span className={`eyebrow-chip w-fit ${panel.chip}`}>{b.eyebrow}</span>
+        <span className="line-clamp-2 text-[1.0625rem] font-extrabold leading-tight sm:text-[1.125rem] xl:text-subtitle">
+          {b.titulo}
+        </span>
+        <span className={`inline-flex items-center gap-1 text-small font-extrabold underline-offset-4 group-hover:underline ${panel.cta}`}>
           {b.cta.label}
-          <Icon name="chevronR" size={14} className="transition-transform duration-base ease-soft group-hover:translate-x-0.5" />
+          <Icon name="chevronR" size={15} className="transition-transform duration-base ease-soft group-hover:translate-x-0.5" />
         </span>
       </div>
       {foto && (
-        <div className="relative w-24 shrink-0 sm:w-28 lg:w-[38%]">
+        <div className="relative w-24 shrink-0 sm:w-32 lg:w-[38%]">
           <img
             src={foto.src} alt={foto.alt} width={foto.width} height={foto.height} loading="lazy" decoding="async"
             className="absolute inset-0 h-full w-full object-cover"

@@ -67,7 +67,7 @@ function Buscador({ id }: { id: string }) {
           id={listId}
           className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 max-h-[62vh] overflow-y-auto rounded-lg bg-white p-1.5 shadow-e3 animate-risein"
         >
-          <p aria-live="polite" className="px-2.5 py-1.5 text-micro text-muted">
+          <p aria-live="polite" className="px-2.5 py-1.5 text-small text-muted">
             {results.length === 0 ? 'Sin resultados para esa búsqueda' : `${results.length} resultados`}
           </p>
           {results.length === 0 ? (
@@ -82,7 +82,7 @@ function Buscador({ id }: { id: string }) {
                     <div className="h-10 w-10 shrink-0 overflow-hidden rounded-sm"><ProductArt product={p} /></div>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-body font-bold">{p.marca} {p.nombre}</p>
-                      <p className="text-micro text-muted">{p.presentacion} · {formatCOP(p.precio)}</p>
+                      <p className="text-small text-muted">{p.presentacion} · {formatCOP(p.precio)}</p>
                     </div>
                     <button
                       type="button"
@@ -102,7 +102,7 @@ function Buscador({ id }: { id: string }) {
   )
 }
 
-function Categorias() {
+function Categorias({ compacto = false }: { compacto?: boolean }) {
   const [open, setOpen] = useState(false)
   const wrap = useOutside(() => setOpen(false))
   return (
@@ -111,13 +111,14 @@ function Categorias() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="btn btn-sm btn-ghost whitespace-nowrap"
+        aria-label={compacto ? 'Abrir categorías' : undefined}
+        className={`btn btn-sm btn-ghost whitespace-nowrap ${compacto ? 'w-11 px-0' : ''}`}
       >
         <Icon name="menu" size={18} />
-        Categorías
+        {!compacto && 'Categorías'}
       </button>
       {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-60 rounded-lg bg-white p-1.5 shadow-e3 animate-risein">
+        <div className={`absolute top-[calc(100%+8px)] z-50 w-60 rounded-lg bg-white p-1.5 shadow-e3 animate-risein ${compacto ? 'left-0' : 'right-0'}`}>
           <ul>
             {accesos.map((a) => (
               <li key={a.id}>
@@ -173,7 +174,7 @@ export function TopBar() {
               <Icon name="cart" size={20} />
               <span
                 key={count}
-                className="min-w-[1.375rem] rounded-pill bg-white px-1 text-center text-micro font-extrabold text-brand-700 animate-pop"
+                className="min-w-[1.375rem] rounded-pill bg-white px-1 text-center text-small font-extrabold text-brand-700 animate-pop"
               >
                 {count}
               </span>
@@ -184,9 +185,14 @@ export function TopBar() {
           </div>
         </div>
 
-        {/* Fila 2 — buscador a ancho completo en móvil. 52 px. Total 104 px. */}
-        <div className="pb-2.5 md:hidden">
-          <Buscador id={`${searchId}-mobile`} />
+        {/* Fila 2 en móvil: acceso a categorías + buscador a ancho completo.
+            El botón de categorías vive aquí y no en la fila de arriba porque
+            allí no cabe; lo que no puede es faltar, que era lo que pasaba. */}
+        <div className="flex items-center gap-2 pb-2 md:hidden">
+          <Categorias compacto />
+          <div className="min-w-0 flex-1">
+            <Buscador id={`${searchId}-mobile`} />
+          </div>
         </div>
       </div>
     </header>

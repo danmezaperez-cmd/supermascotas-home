@@ -46,14 +46,19 @@ const config: Config = {
         ],
       },
       fontSize: {
-        // [size, { lineHeight, letterSpacing }] — ritmo vertical definido, no improvisado
-        display: ['clamp(1.5rem, 1.05rem + 1.55vw, 2.375rem)', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' }],
-        title:   ['clamp(1.375rem, 1.15rem + 1.15vw, 2rem)',    { lineHeight: '1.12', letterSpacing: '-0.02em', fontWeight: '800' }],
-        subtitle:['clamp(1.0625rem, 1rem + 0.4vw, 1.25rem)',    { lineHeight: '1.3',  letterSpacing: '-0.01em', fontWeight: '700' }],
-        'body-lg':['1.0625rem', { lineHeight: '1.6' }],
-        body:    ['0.9375rem', { lineHeight: '1.6' }],
-        micro:   ['0.75rem',   { lineHeight: '1.35', letterSpacing: '0.02em' }],
-        eyebrow: ['0.6875rem', { lineHeight: '1.2', letterSpacing: '0.1em', fontWeight: '700' }],
+        /**
+         * Escala tipográfica. Pasos claros y ninguno por debajo de 13 px:
+         * la versión anterior apoyaba demasiada información en 11 y 12 px.
+         * [tamaño, { interlineado, interletraje, grosor }]
+         */
+        display:  ['clamp(1.625rem, 1.1rem + 1.7vw, 2.5rem)',    { lineHeight: '1.06', letterSpacing: '-0.03em', fontWeight: '800' }],
+        title:    ['clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem)',    { lineHeight: '1.14', letterSpacing: '-0.02em', fontWeight: '800' }],
+        subtitle: ['clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem)', { lineHeight: '1.3',  letterSpacing: '-0.01em', fontWeight: '700' }],
+        'body-lg':['1.125rem',   { lineHeight: '1.6' }],
+        body:     ['1rem',       { lineHeight: '1.55' }],
+        small:    ['0.875rem',   { lineHeight: '1.5' }],
+        micro:    ['0.8125rem',  { lineHeight: '1.4' }],
+        eyebrow:  ['0.75rem',    { lineHeight: '1.25', letterSpacing: '0.06em', fontWeight: '700' }],
       },
       borderRadius: {
         sm: '0.5rem', md: '0.75rem', lg: '1rem', xl: '1.375rem', '2xl': '1.75rem', pill: '999px',

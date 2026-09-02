@@ -41,7 +41,7 @@ function AddButton({ p, block = false }: { p: Product; block?: boolean }) {
 function StockHint({ p }: { p: Product }) {
   if (p.stock > 12) return null
   return (
-    <p className="text-micro font-bold text-accent-700">
+    <p className="text-small font-bold text-accent-700">
       {p.stock === 0 ? 'Sin existencias' : `Quedan ${p.stock}`}
     </p>
   )
@@ -56,36 +56,36 @@ export function OfertaCard({ p }: { p: Product }) {
   const kilo = pricePerKilo(p.precio, p.pesoKg)
   return (
     <article data-card="oferta" className="card card-hover flex h-full w-full flex-col overflow-hidden">
-      <div className="flex gap-2.5 p-2.5 pb-2">
+      <div className="flex gap-3 p-3 pb-2">
         <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md">
           <ProductArt product={p} />
           {off > 0 && (
-            <span className="absolute left-0 top-0 rounded-br-md bg-accent-600 px-1.5 py-0.5 text-[0.625rem] font-extrabold leading-tight text-white">
+            <span className="absolute left-0 top-0 rounded-br-md bg-accent-600 px-2 py-1 text-eyebrow font-extrabold leading-none text-white">
               −{off}%
             </span>
           )}
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col justify-center">
-          <p className="truncate text-micro font-bold uppercase leading-tight tracking-wide text-brand-600">{p.marca}</p>
+          <p className="truncate text-small font-bold uppercase leading-tight tracking-wide text-brand-600">{p.marca}</p>
           <h3 className="truncate text-body font-bold leading-snug">{p.nombre}</h3>
           <p className="mt-0.5 flex min-w-0 items-center gap-1.5">
             <Stars value={p.rating} reviews={p.resenas} size={12} />
             {p.promoHasta && (
-              <span className="whitespace-nowrap text-micro text-muted">· hasta {promoDeadlineShort(p.promoHasta)}</span>
+              <span className="whitespace-nowrap text-small text-muted">· hasta {promoDeadlineShort(p.promoHasta)}</span>
             )}
           </p>
-          <p className="truncate text-micro text-muted">
+          <p className="truncate text-small text-muted">
             {p.presentacion}{kilo && ` · ${kilo}`}
           </p>
           <StockHint p={p} />
         </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-line px-2.5 py-1.5">
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-line px-3 py-1.5">
         <p data-price="" className="flex items-baseline gap-x-1.5 whitespace-nowrap">
           <span className="text-[1.0625rem] font-extrabold leading-tight tracking-tight">{formatCOP(p.precio)}</span>
-          {off > 0 && <s className="text-micro text-muted">{formatCOP(p.precioAntes!)}</s>}
+          {off > 0 && <s className="text-small text-muted">{formatCOP(p.precioAntes!)}</s>}
         </p>
         <AddButton p={p} />
       </div>
@@ -105,9 +105,9 @@ export function ProductCard({ p }: { p: Product }) {
           </span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-3">
+      <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="min-w-0">
-          <p className="truncate text-micro font-bold uppercase tracking-wide text-brand-600">{p.marca}</p>
+          <p className="truncate text-small font-bold uppercase tracking-wide text-brand-600">{p.marca}</p>
           <h3 className="line-clamp-2 min-h-[2.6em] text-body font-bold leading-snug">
             {p.nombre} <span className="font-medium text-muted">· {p.presentacion}</span>
           </h3>
