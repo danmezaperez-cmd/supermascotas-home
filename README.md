@@ -28,9 +28,17 @@ Medición automatizada con Playwright y Chromium (requiere `npm run build` antes
 
 ```bash
 node scripts/serve.mjs &   # sirve out/ en :4311
-node scripts/audit.mjs     # fold, scroll horizontal, alto de página, flujo de compra
-node scripts/a11y.mjs      # contraste AA, áreas táctiles, zoom 200 %, teclado
+node scripts/audit.mjs         # fold, scroll horizontal, alto de página, flujo de compra
+node scripts/a11y.mjs          # contraste AA, áreas táctiles, zoom 200 %, espaciado 1.4.12, teclado
+node scripts/responsive.mjs    # 23 anchos: texto recortado y etiquetas solapadas
+node scripts/contraste-banner.mjs  # contraste real, píxel a píxel, del texto sobre foto
+node scripts/tipografia.mjs    # censo de tamaños de texto realmente pintados
 ```
+
+`responsive.mjs` descarta dos falsos positivos que invalidan una comprobación
+ingenua: los elementos arrastrados fuera de vista por un contenedor con scroll
+—las diapositivas del carrusel— y los que un `line-clamp` ancestro recorta,
+cuya geometría no corresponde a lo que se ve.
 
 Los resultados quedan en `audit/*.json` y las capturas en `audit/shots/`.
 

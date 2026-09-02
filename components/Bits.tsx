@@ -23,7 +23,9 @@ export function Stars({ value, reviews, size = 13 }: { value: number; reviews?: 
 }
 
 /** Precio tachado + % de ahorro + precio por kilo. Nunca "precio regular" a secas. */
-export function Price({ p, compact = false }: { p: Product; compact?: boolean }) {
+export function Price({
+  p, compact = false, conChipDescuento = true,
+}: { p: Product; compact?: boolean; conChipDescuento?: boolean }) {
   const off = discountPct(p.precio, p.precioAntes)
   const kilo = pricePerKilo(p.precio, p.pesoKg)
   return (
@@ -32,13 +34,11 @@ export function Price({ p, compact = false }: { p: Product; compact?: boolean })
         <span className={compact ? 'text-[1.0625rem] font-extrabold tracking-tight' : 'text-[1.25rem] font-extrabold tracking-tight'}>
           {formatCOP(p.precio)}
         </span>
-        {off > 0 && (
-          <>
-            <s className="text-small text-muted">{formatCOP(p.precioAntes!)}</s>
-            <span className="rounded-pill bg-accent-50 px-2 py-0.5 text-small font-extrabold text-accent-700">
-              −{off}%
-            </span>
-          </>
+        {off > 0 && <s className="text-small text-muted">{formatCOP(p.precioAntes!)}</s>}
+        {off > 0 && conChipDescuento && (
+          <span className="rounded-pill bg-accent-50 px-2 py-0.5 text-small font-extrabold text-accent-700">
+            −{off}%
+          </span>
         )}
       </div>
       {kilo && <p className="mt-1 text-small text-muted">{kilo}</p>}

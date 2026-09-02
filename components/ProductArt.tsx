@@ -44,22 +44,34 @@ function Silueta({ categoria }: { categoria: Categoria }) {
 }
 
 function Envase({ p, t }: { p: Product; t: Tono }) {
+  /**
+   * El rótulo se ajusta al ancho útil del envase (~72 unidades del lienzo).
+   * Con un tamaño fijo, «Pedigree» o «Cat Chow» se salían por los costados.
+   */
+  const ajusta = (texto: string, maximo: number, minimo: number, anchoChar: number) =>
+    Math.max(minimo, Math.min(maximo, 72 / (Math.max(texto.length, 1) * anchoChar)))
+
+  // Una presentación larga («1 TABLETA · 3 MESES») solo cabía encogiéndola
+  // hasta 7,5 px, ilegible. Se omite del envase: la tarjeta ya la muestra.
+  const presentacion = p.presentacion.length <= 11 ? p.presentacion.toUpperCase() : ''
   const marca = (
     <>
       <text
         x="100" y="105" textAnchor="middle" fill={t.tinta}
-        fontSize={p.marca.length > 10 ? 16 : 19} fontWeight={800} letterSpacing="-0.4"
+        fontSize={ajusta(p.marca, 19, 10, 0.58)} fontWeight={800} letterSpacing="-0.4"
         fontFamily="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
       >
         {p.marca}
       </text>
-      <text
-        x="100" y="124" textAnchor="middle" fill={t.tinta} opacity=".72"
-        fontSize="11.5" fontWeight={700} letterSpacing="0.5"
-        fontFamily="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
-      >
-        {p.presentacion.toUpperCase()}
-      </text>
+      {presentacion && (
+        <text
+          x="100" y="124" textAnchor="middle" fill={t.tinta} opacity=".72"
+          fontSize={ajusta(presentacion, 11.5, 10, 0.66)} fontWeight={700} letterSpacing="0.4"
+          fontFamily="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+        >
+          {presentacion}
+        </text>
+      )}
     </>
   )
 

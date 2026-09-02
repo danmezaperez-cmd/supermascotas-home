@@ -13,7 +13,7 @@ export function BestSellers() {
       />
       <ul className="rail rail-bleed gap-4 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:[margin-inline:0] md:[padding-inline:0]">
         {masVendidos.map((p) => (
-          <li key={p.id} className="w-[11.5rem] sm:w-[13rem] md:w-auto"><ProductCard p={p} /></li>
+          <li key={p.id} className="w-[20.5rem] sm:w-[13rem] md:w-auto"><ProductCard p={p} /></li>
         ))}
       </ul>
     </section>
